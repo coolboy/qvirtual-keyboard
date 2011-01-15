@@ -23,7 +23,7 @@ widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidg
 	m_player(QDir::currentPath() + CLICK_SOUND), m_clipboard(QApplication::clipboard())
 {        
 	this->m_clipboard->clear();
-	this->setWindowIcon(QPixmap(":/TastieraVirtuale/logo"));
+	this->setWindowIcon(QPixmap(":/VirtualKeyboard/logo"));
 }
 
 widgetKeyBoard::~widgetKeyBoard()
@@ -73,20 +73,20 @@ QKeyPushButton * widgetKeyBoard::createNewKey(QString keyValue)
 	}
 	if (IS_PASSWORD(keyValue) == true || IS_PASSWORD_EMB(keyValue) == true) {
 		tmp->setIconSize(imageDim);
-		tmp->setIcon(QPixmap(":/TastieraVirtuale/normalEcho"));            
+		tmp->setIcon(QPixmap(":/VirtualKeyboard/normalEcho"));            
 	}        
 	else if (IS_PASTE(keyValue) == true) {
 		tmp->setIconSize(imageDim);
 		tmp->setEnabled(false);
-		tmp->setIcon(QPixmap(":/TastieraVirtuale/paste"));
+		tmp->setIcon(QPixmap(":/VirtualKeyboard/paste"));
 	}
 	else if (IS_COPY(keyValue) == true) {
 		tmp->setIconSize(imageDim);
-		tmp->setIcon(QPixmap(":/TastieraVirtuale/copy"));
+		tmp->setIcon(QPixmap(":/VirtualKeyboard/copy"));
 	}
 	else if (IS_CUT_LEFT(keyValue) == true) {
 		tmp->setIconSize(imageDim);
-		tmp->setIcon(QPixmap(":/TastieraVirtuale/cut"));
+		tmp->setIcon(QPixmap(":/VirtualKeyboard/cut"));
 	}
 	tmp->setText(keyValue);
 	if (this->isEmbeddedKeyboard() == true) {
@@ -140,11 +140,11 @@ void widgetKeyBoard::controlKeyEcho(QLineEdit *control)
 	if (echoControlKey != NULL) { // support for password echo functionality            
 		if (control->echoMode() == QLineEdit::Normal) {            
 			echoControlKey->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) +  tmpStyle); // segnalato come attivo
-			echoControlKey->setIcon(QPixmap(":/TastieraVirtuale/normalEcho"));
+			echoControlKey->setIcon(QPixmap(":/VirtualKeyboard/normalEcho"));
 		}
 		else if (control->echoMode() == QLineEdit::Password) {            
 			echoControlKey->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(CHANGED_BACKGROUND_BUTTON) + tmpStyle); // segnalato come attivo
-			echoControlKey->setIcon(QPixmap(":/TastieraVirtuale/passwdEcho"));
+			echoControlKey->setIcon(QPixmap(":/VirtualKeyboard/passwdEcho"));
 		}
 		echoControlKey->repaint();
 		QApplication::processEvents();
