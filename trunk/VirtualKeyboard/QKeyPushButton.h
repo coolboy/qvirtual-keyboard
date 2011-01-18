@@ -13,7 +13,7 @@
 
 #pragma once
 
-#include <QtGui>
+#include <QtGui/QtGui>
 
 //sounds:
 #define CLICK_SOUND                    "/sounds/click.wav" // in future version of QT QSound will support loader from resource file
@@ -89,8 +89,11 @@ private:
 	QWidget		*m_parent;
 	QString         style_embedded;
 	int             m_oldYKey;
+	//bool m_pressed;//if pressed
+	//bool m_left;//if left
 
 protected:
 	void 		mousePressEvent(QMouseEvent *event);
 	void 		mouseReleaseEvent(QMouseEvent *event);
+	void mouseMoveEvent ( QMouseEvent * event );
 };

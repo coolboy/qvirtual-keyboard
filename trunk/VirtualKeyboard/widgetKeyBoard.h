@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <string>
+
 #include <QtGui>
 
 #include "QKeyPushButton.h"
@@ -41,7 +43,29 @@ public:
 	public slots:
 	void 			show(QWidget *activeForm);
 	void 			hide(bool noChangeColor);
-	void                    focusThis(QLineEdit *control);
+	void            focusThis(QLineEdit *control);
+
+	//Yang's
+public:
+	std::string getTrace(){
+		return m_trace;
+	}
+
+	void clearTrace(){
+		m_trace.clear();
+	}
+
+	void putTrace(char chr){
+		m_trace.push_back(chr);
+	}
+
+	char peekTrace(){
+		if (m_trace.empty())
+			return -1; // means empty
+			//throw std::exception("Trace is empty!");
+
+		return *m_trace.rbegin();
+	}
 
 protected:
 	void			closeEvent (QCloseEvent * event);
@@ -68,4 +92,8 @@ private:
 	bool                    m_enablePasswordEcho; // controls the possibility to change among normal/password echo
 	QSound                  m_player;
 	QClipboard              *m_clipboard;
+
+	//Yang's
+private:
+	std::string m_trace;
 };

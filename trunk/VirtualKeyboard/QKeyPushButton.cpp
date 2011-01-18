@@ -54,65 +54,85 @@ void QKeyPushButton::getKeyPress(bool capsStatus)
 
 void QKeyPushButton::mousePressEvent(QMouseEvent *event)
 {
-	static bool 	m_capsActive = true;
 	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
-	static int      yMarginKeyboard = tmpKeyBoard->rect().y();
-	QString		text = this->text();
-	short           adjustZoomedKey = HEIGHT_ZOOM_KEY;
-	QString         defaultStyleButton = QString(DEFAULT_STYLE_BUTTON);
-	QString         changedColorButton = QString(CHANGED_BACKGROUND_BUTTON);
-	//
-	// se si tratta del maiuscolo:
-	if (IS_CAPS(text) == true) {
-		if (m_capsActive == false)
-			m_capsActive = true;
-		else {
-			changedColorButton = QString(DEFAULT_BACKGROUND_BUTTON);
-			m_capsActive = false;
-		}
-		this->setStyleSheet(defaultStyleButton + changedColorButton + this->style_embedded);
-		this->repaint();
-		QCoreApplication::processEvents();
-	}
-	else if (tmpKeyBoard->isEnabledSwitchingEcho() == true && (IS_PASSWORD(text) == true || IS_PASSWORD_EMB(text) == true))
-		tmpKeyBoard->switchKeyEchoMode(tmpKeyBoard->currentTextBox());
-	else {
-		this->setStyleSheet(defaultStyleButton + changedColorButton + this->style_embedded);
-		this->repaint();
-		QCoreApplication::processEvents();
-		emit pressedKey(m_capsActive);
-	}
-	this->m_oldYKey = 0;
-	if (tmpKeyBoard->isEmbeddedKeyboard() == true && tmpKeyBoard->isZoomFacilityEnable() && NO_SPECIAL_KEY(text) && text.trimmed().length() != 0) {
-		tmpKeyBoard->setCursor(Qt::BlankCursor);
-		if (this->y() - adjustZoomedKey - KEY_HEIGHT_EMBEDDED < yMarginKeyboard)
-			this->m_oldYKey = this->y();
-		else
-			adjustZoomedKey = -HEIGHT_ZOOM_KEY;
-		this->setGeometry(this->x() - 10, this->y() + adjustZoomedKey - KEY_HEIGHT_EMBEDDED, KEY_WIDTH_EMBEDDED + WIDTH_ZOOM_KEY, KEY_HEIGHT_EMBEDDED + HEIGHT_ZOOM_KEY);
-		this->setStyleSheet(changedColorButton + defaultStyleButton);
-		QCoreApplication::processEvents();
-	}
+	tmpKeyBoard->putTrace(text().at(0).toAscii());
+	//static bool 	m_capsActive = true;
+	//widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
+	//static int      yMarginKeyboard = tmpKeyBoard->rect().y();
+	//QString		text = this->text();
+	//short           adjustZoomedKey = HEIGHT_ZOOM_KEY;
+	//QString         defaultStyleButton = QString(DEFAULT_STYLE_BUTTON);
+	//QString         changedColorButton = QString(CHANGED_BACKGROUND_BUTTON);
+	////
+	//// se si tratta del maiuscolo:
+	//if (IS_CAPS(text) == true) {
+	//	if (m_capsActive == false)
+	//		m_capsActive = true;
+	//	else {
+	//		changedColorButton = QString(DEFAULT_BACKGROUND_BUTTON);
+	//		m_capsActive = false;
+	//	}
+	//	this->setStyleSheet(defaultStyleButton + changedColorButton + this->style_embedded);
+	//	this->repaint();
+	//	QCoreApplication::processEvents();
+	//}
+	//else if (tmpKeyBoard->isEnabledSwitchingEcho() == true && (IS_PASSWORD(text) == true || IS_PASSWORD_EMB(text) == true))
+	//	tmpKeyBoard->switchKeyEchoMode(tmpKeyBoard->currentTextBox());
+	//else {
+	//	this->setStyleSheet(defaultStyleButton + changedColorButton + this->style_embedded);
+	//	this->repaint();
+	//	QCoreApplication::processEvents();
+	//	emit pressedKey(m_capsActive);
+	//}
+	//this->m_oldYKey = 0;
+	//if (tmpKeyBoard->isEmbeddedKeyboard() == true && tmpKeyBoard->isZoomFacilityEnable() && NO_SPECIAL_KEY(text) && text.trimmed().length() != 0) {
+	//	tmpKeyBoard->setCursor(Qt::BlankCursor);
+	//	if (this->y() - adjustZoomedKey - KEY_HEIGHT_EMBEDDED < yMarginKeyboard)
+	//		this->m_oldYKey = this->y();
+	//	else
+	//		adjustZoomedKey = -HEIGHT_ZOOM_KEY;
+	//	this->setGeometry(this->x() - 10, this->y() + adjustZoomedKey - KEY_HEIGHT_EMBEDDED, KEY_WIDTH_EMBEDDED + WIDTH_ZOOM_KEY, KEY_HEIGHT_EMBEDDED + HEIGHT_ZOOM_KEY);
+	//	this->setStyleSheet(changedColorButton + defaultStyleButton);
+	//	QCoreApplication::processEvents();
+	//}
 }
 
 void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 {
 	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
-	bool            pressedEcho = IS_PASSWORD(this->text()) == true || IS_PASSWORD_EMB(this->text()) == true;
+	std::string trace = tmpKeyBoard->getTrace(); 
 
-	if (IS_CAPS(this->text()) == false && pressedEcho == false) {
-		if (tmpKeyBoard->isEmbeddedKeyboard() == true && tmpKeyBoard->isZoomFacilityEnable() && NO_SPECIAL_KEY(this->text())  && this->text().trimmed().length() != 0) {
-			tmpKeyBoard->setCursor(Qt::ArrowCursor);
-			if (this->m_oldYKey != 0)
-				this->setGeometry(this->x() + 10, this->m_oldYKey, KEY_WIDTH_EMBEDDED, KEY_HEIGHT_EMBEDDED);
-			else
-				this->setGeometry(this->x() + 10, this->y() + HEIGHT_ZOOM_KEY + KEY_HEIGHT_EMBEDDED, KEY_WIDTH_EMBEDDED, KEY_HEIGHT_EMBEDDED);
-			this->m_oldYKey = 0;
-			QCoreApplication::processEvents();
-		}        
-		this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) + this->style_embedded);
-	}
-	else if (pressedEcho == true && tmpKeyBoard->isEnabledSwitchingEcho() == false && tmpKeyBoard->currentTextBox()->echoMode() == QLineEdit::Normal)
-		this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) + this->style_embedded);
-	tmpKeyBoard->soundClick();
+	tmpKeyBoard->clearTrace();
+	//widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
+	//bool            pressedEcho = IS_PASSWORD(this->text()) == true || IS_PASSWORD_EMB(this->text()) == true;
+
+	//if (IS_CAPS(this->text()) == false && pressedEcho == false) {
+	//	if (tmpKeyBoard->isEmbeddedKeyboard() == true && tmpKeyBoard->isZoomFacilityEnable() && NO_SPECIAL_KEY(this->text())  && this->text().trimmed().length() != 0) {
+	//		tmpKeyBoard->setCursor(Qt::ArrowCursor);
+	//		if (this->m_oldYKey != 0)
+	//			this->setGeometry(this->x() + 10, this->m_oldYKey, KEY_WIDTH_EMBEDDED, KEY_HEIGHT_EMBEDDED);
+	//		else
+	//			this->setGeometry(this->x() + 10, this->y() + HEIGHT_ZOOM_KEY + KEY_HEIGHT_EMBEDDED, KEY_WIDTH_EMBEDDED, KEY_HEIGHT_EMBEDDED);
+	//		this->m_oldYKey = 0;
+	//		QCoreApplication::processEvents();
+	//	}        
+	//	this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) + this->style_embedded);
+	//}
+	//else if (pressedEcho == true && tmpKeyBoard->isEnabledSwitchingEcho() == false && tmpKeyBoard->currentTextBox()->echoMode() == QLineEdit::Normal)
+	//	this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) + this->style_embedded);
+	//tmpKeyBoard->soundClick();
+}
+
+void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
+{
+	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
+	QKeyPushButton* currentKey = NULL;
+	QWidget* currentWig = QApplication::widgetAt (event->globalX(), event->globalY());
+
+	currentKey = dynamic_cast<QKeyPushButton*>(currentWig);
+
+	if (currentKey)
+		if (currentKey->text().at(0).toAscii() != tmpKeyBoard->peekTrace())
+			tmpKeyBoard->putTrace(currentKey->text().at(0).toAscii() );
+	//this->text();
 }
