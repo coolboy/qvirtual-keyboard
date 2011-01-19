@@ -55,7 +55,13 @@ void QKeyPushButton::getKeyPress(bool capsStatus)
 void QKeyPushButton::mousePressEvent(QMouseEvent *event)
 {
 	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
+
+	//put the first character when press the mouse button
 	tmpKeyBoard->putTrace(text().at(0).toAscii());
+
+	//set style to pressed
+	setPressedStyle();
+
 	//static bool 	m_capsActive = true;
 	//widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
 	//static int      yMarginKeyboard = tmpKeyBoard->rect().y();
@@ -102,7 +108,19 @@ void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
 	std::string trace = tmpKeyBoard->getTrace(); 
 
+	//send the whole trace to lzt's algorithm
+
+	if (trace.size() == 1)//restore this key's style sheet, if we only input one letter
+		setDefaultStyle();
+	else {
+		//restore last key's style to default, if we input a serious of letter
+		QChar lastChr = tmpKeyBoard->peekTrace();
+		tmpKeyBoard->findKey(lastChr)->setDefaultStyle();
+	}
+
+	//clear the trace and ready for the next input
 	tmpKeyBoard->clearTrace();
+
 	//widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
 	//bool            pressedEcho = IS_PASSWORD(this->text()) == true || IS_PASSWORD_EMB(this->text()) == true;
 
@@ -126,13 +144,29 @@ void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
 {
 	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
-	QKeyPushButton* currentKey = NULL;
 	QWidget* currentWig = QApplication::widgetAt (event->globalX(), event->globalY());
 
-	currentKey = dynamic_cast<QKeyPushButton*>(currentWig);
+	QKeyPushButton* currentKey = dynamic_cast<QKeyPushButton*>(currentWig);
 
-	if (currentKey)
-		if (currentKey->text().at(0).toAscii() != tmpKeyBoard->peekTrace())
+	if (currentKey){
+		if (currentKey->text().at(0).toAscii() != tmpKeyBoard->peekTrace()){
+			//restore the last key to default style
+			QKeyPushButton* lastKey = tmpKeyBoard->findKey(QChar(tmpKeyBoard->peekTrace()));
+			lastKey->setDefaultStyle();
+
+			//set current key to pressed style
 			tmpKeyBoard->putTrace(currentKey->text().at(0).toAscii() );
-	//this->text();
+			currentKey->setPressedStyle();
+		}
+	}
+}
+
+void QKeyPushButton::setPressedStyle()
+{
+	setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(CHANGED_BACKGROUND_BUTTON));
+}
+
+void QKeyPushButton::setDefaultStyle()
+{
+	setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON));
 }

@@ -27,8 +27,8 @@ public:
 	widgetKeyBoard(bool embeddedKeyboard = false, QWidget *activeForm = NULL, QWidget *parent = NULL);
 	~widgetKeyBoard();
 
-	void 			createKeyboard(void);
-	bool                    isEmbeddedKeyboard(void);
+	void createKeyboard(void);
+	bool isEmbeddedKeyboard(void);
 	void                    soundClick(void);
 	void                    setZoomFacility(bool active); // only valid for embedded keyboard
 	bool                    isZoomFacilityEnable(void);
@@ -40,12 +40,14 @@ public:
 	void                    enableSwitchingEcho(bool status); // if you don't want control echo from keyboard
 	bool                    isEnabledSwitchingEcho(void); // current status
 
-	public slots:
+	QKeyPushButton* findKey(QString keyStr);
+
+public slots:
 	void 			show(QWidget *activeForm);
 	void 			hide(bool noChangeColor);
 	void            focusThis(QLineEdit *control);
 
-	//Yang's
+	//Yang's methods for trace support
 public:
 	std::string getTrace(){
 		return m_trace;
@@ -93,7 +95,7 @@ private:
 	QSound                  m_player;
 	QClipboard              *m_clipboard;
 
-	//Yang's
+	//Yang's method for trace support
 private:
 	std::string m_trace;
 };
