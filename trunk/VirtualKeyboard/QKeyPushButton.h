@@ -72,22 +72,25 @@ class QKeyPushButton : public QPushButton {
 
 public:
 	QKeyPushButton(QWidget *parent = 0);
+
 	void setPressedStyle();
 	void setDefaultStyle();
+
+	void increaseWeight();
+	int getWeight();
 
 private slots:
 	void getKeyPress(bool statusCaps);
 
 signals:
 	void pressedKey(bool statusCaps);
-//private:
 
 private:
 	QWidget		*m_parent;
 	QString         style_embedded;
 	int             m_oldYKey;
-	//bool m_pressed;//if pressed
-	//bool m_left;//if left
+
+	int m_weight;
 
 protected:
 	void mousePressEvent(QMouseEvent *event);

@@ -14,11 +14,30 @@
 
 #pragma once
 
-#include <string>
+//#include <string>
+#include <vector>
 
 #include <QtGui>
 
 #include "QKeyPushButton.h"
+
+class TraceObject{
+public:
+	TraceObject():m_weight(0){ }
+
+	TraceObject(const QString& chr):m_weight(0), m_chr(chr){}
+
+	QString getCharcter() const { return m_chr; }
+	void setCharcter(const QString& val) { m_chr = val; }
+	int getWeight() const { return m_weight; }
+	void setWeight(int val) { m_weight = val; }
+
+private:
+	QString m_chr;
+	int m_weight;
+};
+
+typedef std::vector<TraceObject> Trace;
 
 class widgetKeyBoard : public QWidget {
 	Q_OBJECT
@@ -40,6 +59,7 @@ public:
 	void                    enableSwitchingEcho(bool status); // if you don't want control echo from keyboard
 	bool                    isEnabledSwitchingEcho(void); // current status
 
+	//find the key widget using the specific key str
 	QKeyPushButton* findKey(QString keyStr);
 
 public slots:
@@ -49,7 +69,7 @@ public slots:
 
 	//Yang's methods for trace support
 public:
-	std::string getTrace(){
+	Trace getTrace(){
 		return m_trace;
 	}
 
@@ -57,14 +77,13 @@ public:
 		m_trace.clear();
 	}
 
-	void putTrace(char chr){
-		m_trace.push_back(chr);
+	void putTrace(const TraceObject& obj){
+		m_trace.push_back(obj);
 	}
 
-	char peekTrace(){
+	TraceObject& peekTrace(){
 		if (m_trace.empty())
-			return -1; // means empty
-			//throw std::exception("Trace is empty!");
+			throw std::exception("Trace is empty!");
 
 		return *m_trace.rbegin();
 	}
@@ -97,5 +116,5 @@ private:
 
 	//Yang's method for trace support
 private:
-	std::string m_trace;
+	Trace m_trace;
 };

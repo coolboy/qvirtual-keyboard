@@ -17,7 +17,7 @@
 #include "widgetKeyBoard.h"
 
 
-QKeyPushButton::QKeyPushButton(QWidget *parent) : QPushButton(parent), m_parent(parent)
+QKeyPushButton::QKeyPushButton(QWidget *parent) : QPushButton(parent), m_parent(parent), m_weight(-1)
 {
 	this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON));
 	connect(this, SIGNAL(pressedKey(bool)), SLOT(getKeyPress(bool)));
@@ -57,7 +57,7 @@ void QKeyPushButton::mousePressEvent(QMouseEvent *event)
 	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
 
 	//put the first character when press the mouse button
-	tmpKeyBoard->putTrace(text().at(0).toAscii());
+	tmpKeyBoard->putTrace(TraceObject(text()));
 
 	//set style to pressed
 	setPressedStyle();
@@ -106,16 +106,23 @@ void QKeyPushButton::mousePressEvent(QMouseEvent *event)
 void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 {
 	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
-	std::string trace = tmpKeyBoard->getTrace(); 
 
-	//send the whole trace to lzt's algorithm
-
-	if (trace.size() == 1)//restore this key's style sheet, if we only input one letter
+	if (tmpKeyBoard->getTrace().size() == 1){//restore this key's style sheet, if we only input one letter
 		setDefaultStyle();
-	else {
+		emit pressedKey(false);//output the single key
+	}
+	else {		
 		//restore last key's style to default, if we input a serious of letter
-		QChar lastChr = tmpKeyBoard->peekTrace();
-		tmpKeyBoard->findKey(lastChr)->setDefaultStyle();
+		TraceObject& traceObj = tmpKeyBoard->peekTrace();
+
+		QKeyPushButton* lastKey = tmpKeyBoard->findKey(traceObj.getCharcter());
+		//set the weight for the last key
+		traceObj.setWeight(lastKey->getWeight());
+		lastKey->setDefaultStyle();
+
+		Trace trace = tmpKeyBoard->getTrace();
+
+		//send the whole trace to lzt's algorithm
 	}
 
 	//clear the trace and ready for the next input
@@ -149,13 +156,16 @@ void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
 	QKeyPushButton* currentKey = dynamic_cast<QKeyPushButton*>(currentWig);
 
 	if (currentKey){
-		if (currentKey->text().at(0).toAscii() != tmpKeyBoard->peekTrace()){
+		currentKey->increaseWeight();
+		if (currentKey->text().compare(tmpKeyBoard->peekTrace().getCharcter(), Qt::CaseInsensitive) != 0){
 			//restore the last key to default style
-			QKeyPushButton* lastKey = tmpKeyBoard->findKey(QChar(tmpKeyBoard->peekTrace()));
+			QKeyPushButton* lastKey = tmpKeyBoard->findKey(tmpKeyBoard->peekTrace().getCharcter());
+			//set the weight
+			tmpKeyBoard->peekTrace().setWeight(lastKey->getWeight());
 			lastKey->setDefaultStyle();
 
 			//set current key to pressed style
-			tmpKeyBoard->putTrace(currentKey->text().at(0).toAscii() );
+			tmpKeyBoard->putTrace(TraceObject(currentKey->text()));
 			currentKey->setPressedStyle();
 		}
 	}
@@ -163,10 +173,22 @@ void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
 
 void QKeyPushButton::setPressedStyle()
 {
+	m_weight = 0;
 	setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(CHANGED_BACKGROUND_BUTTON));
 }
 
 void QKeyPushButton::setDefaultStyle()
 {
+	m_weight = -1;
 	setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON));
+}
+
+int QKeyPushButton::getWeight()
+{
+	return m_weight;
+}
+
+void QKeyPushButton::increaseWeight()
+{
+	++m_weight;
 }
