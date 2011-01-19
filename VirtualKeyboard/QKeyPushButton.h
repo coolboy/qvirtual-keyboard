@@ -19,16 +19,10 @@
 #define CLICK_SOUND                    "/sounds/click.wav" // in future version of QT QSound will support loader from resource file
 //
 // colori e stile da utilizzare per la tastiera ed i tasti:
-#define _QKEYPUSHBUTTON_H
-
 #define DEFAULT_STYLE_BUTTON            "border: 1px solid #8f8f91;border-radius:5px;"
 #define DEFAULT_BACKGROUND_BUTTON	"background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde);"
 #define CHANGED_BACKGROUND_BUTTON	"background:lightblue;"
 #define STYLE_FOCUS_TEXT                "border: 1px solid red"
-
-//#define DEFAULT_STYLE_BUTTON		"color:white;border: 2px solid black;border-radius:5px;font-weight: bold;font-size:17px;"
-//#define DEFAULT_BACKGROUND_BUTTON	"background:gray;"
-//#define CHANGED_BACKGROUND_BUTTON	"background:red;"
 
 #define EMBEDDED_KEYBOARD               "font-size:9px"
 #define WIDTH_ZOOM_KEY                  20
@@ -78,12 +72,15 @@ class QKeyPushButton : public QPushButton {
 
 public:
 	QKeyPushButton(QWidget *parent = 0);
+	void setPressedStyle();
+	void setDefaultStyle();
 
-	private slots:
-		void 		getKeyPress(bool statusCaps);
+private slots:
+	void getKeyPress(bool statusCaps);
 
 signals:
-		void 		pressedKey(bool statusCaps);
+	void pressedKey(bool statusCaps);
+//private:
 
 private:
 	QWidget		*m_parent;
@@ -93,7 +90,7 @@ private:
 	//bool m_left;//if left
 
 protected:
-	void 		mousePressEvent(QMouseEvent *event);
-	void 		mouseReleaseEvent(QMouseEvent *event);
+	void mousePressEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event);
 	void mouseMoveEvent ( QMouseEvent * event );
 };

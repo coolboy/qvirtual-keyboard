@@ -14,6 +14,8 @@
 
 #include "stdafx.h"
 
+#include <algorithm>
+
 #include "widgetKeyBoard.h"
 
 bool widgetKeyBoard::m_created = false;
@@ -505,4 +507,21 @@ void widgetKeyBoard::createKeyboard(void)
 	// aggancia il layout a tutto il form:
 	this->setLayout(tmpVLayout);
 	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+}
+
+QKeyPushButton* widgetKeyBoard::findKey( QString keyStr )
+{
+	QKeyPushButton* ret = NULL;
+	QObjectList lst = children();
+
+	std::for_each(lst.begin(), lst.end(), [&ret, keyStr](QObject* obj){
+		QKeyPushButton* key = dynamic_cast<QKeyPushButton*>(obj);
+		if (key == NULL)
+			return;
+
+		if (key->text().compare(keyStr, Qt::CaseInsensitive) == 0)
+			ret = key;
+	});
+
+	return ret;
 }
