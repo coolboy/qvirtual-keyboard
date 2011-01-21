@@ -17,7 +17,7 @@
 //#include <string>
 #include <vector>
 
-#include <QtGui>
+#include <QtGui/QtGui>
 
 #include "QKeyPushButton.h"
 
