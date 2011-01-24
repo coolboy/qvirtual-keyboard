@@ -71,6 +71,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_widgetKeyBoard.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="overlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_overlay.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_overlay.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -94,6 +103,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="widgetKeyBoard.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="overlay.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

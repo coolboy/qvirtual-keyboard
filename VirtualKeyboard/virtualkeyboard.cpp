@@ -16,7 +16,9 @@ VirtualKeyboard::VirtualKeyboard(QWidget *parent, Qt::WFlags flags)
 	//set the focus
 	myKeyboard->focusThis(ui.inputLE);//set the focus to the line edit
 
+	//add the keyboard to the layout
 	ui.gridLayout->addWidget(myKeyboard);
+
 }
 
 VirtualKeyboard::~VirtualKeyboard()
