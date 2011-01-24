@@ -525,3 +525,18 @@ QKeyPushButton* widgetKeyBoard::findKey( QString keyStr )
 
 	return ret;
 }
+
+void widgetKeyBoard::mousePressEvent( QMouseEvent *event )
+{
+	QWidget::mousePressEvent(event);
+}
+
+void widgetKeyBoard::mouseReleaseEvent( QMouseEvent *event )
+{
+	QWidget::mouseReleaseEvent(event);
+}
+
+void widgetKeyBoard::mouseMoveEvent( QMouseEvent * event )
+{
+	QWidget::mouseMoveEvent(event);
+}

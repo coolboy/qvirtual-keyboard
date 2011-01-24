@@ -65,7 +65,7 @@ public:
 public slots:
 	void 			show(QWidget *activeForm);
 	void 			hide(bool noChangeColor);
-	void            focusThis(QLineEdit *control);
+	void focusThis(QLineEdit *control);
 
 	//Yang's methods for trace support
 public:
@@ -89,7 +89,12 @@ public:
 	}
 
 protected:
-	void			closeEvent (QCloseEvent * event);
+	void closeEvent (QCloseEvent * event);
+
+protected:
+	void mousePressEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event);
+	void mouseMoveEvent ( QMouseEvent * event );
 
 private:
 	widgetKeyBoard(const widgetKeyBoard&);
