@@ -26,6 +26,14 @@ widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidg
 {        
 	this->m_clipboard->clear();
 	this->setWindowIcon(QPixmap(":/VirtualKeyboard/logo"));
+
+	//for overlay
+	modified = false;
+	scribbling = false;
+	myPenWidth = 1;
+	myPenColor = Qt::blue;
+
+	//overlay->raise();
 }
 
 widgetKeyBoard::~widgetKeyBoard()
@@ -507,6 +515,10 @@ void widgetKeyBoard::createKeyboard(void)
 	// aggancia il layout a tutto il form:
 	this->setLayout(tmpVLayout);
 	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+	//create overlay, must create at last to make sure it at bottom
+	overlay = new Overlay(this);
+	overlay->SetOverlay(&overlayImg);
 }
 
 QKeyPushButton* widgetKeyBoard::findKey( QString keyStr )
@@ -528,15 +540,82 @@ QKeyPushButton* widgetKeyBoard::findKey( QString keyStr )
 
 void widgetKeyBoard::mousePressEvent( QMouseEvent *event )
 {
+	if (event->button() == Qt::LeftButton) {
+		lastPoint = event->pos();
+		scribbling = true;
+	}
+
 	QWidget::mousePressEvent(event);
 }
 
 void widgetKeyBoard::mouseReleaseEvent( QMouseEvent *event )
 {
+	if (event->button() == Qt::LeftButton && scribbling) {
+		clearOverlay();
+		scribbling = false;
+	}
+
 	QWidget::mouseReleaseEvent(event);
 }
 
 void widgetKeyBoard::mouseMoveEvent( QMouseEvent * event )
 {
+	if ((event->buttons() & Qt::LeftButton) && scribbling){
+		drawLineTo(event->pos());
+	}
+
 	QWidget::mouseMoveEvent(event);
+}
+
+//void widgetKeyBoard::paintEvent( QPaintEvent *event )
+//{
+	//overlay->update();
+
+	//QWidget::paintEvent(event);
+//}
+
+void widgetKeyBoard::resizeEvent( QResizeEvent *event )
+{
+	if (width() > overlayImg.width() || height() > overlayImg.height()) {
+		int newWidth = qMax(width() + 128, overlayImg.width());
+		int newHeight = qMax(height() + 128, overlayImg.height());
+		resizeImage(&overlayImg, QSize(newWidth, newHeight));
+	}
+
+	overlay->resize(event->size());
+
+	QWidget::resizeEvent(event);
+}
+
+void widgetKeyBoard::drawLineTo( const QPoint &endPoint )
+{
+	QPainter painter(&overlayImg);
+	painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap,
+		Qt::RoundJoin));
+	painter.drawLine(lastPoint, endPoint);
+	modified = true;
+
+	int rad = (myPenWidth / 2) + 2;
+	lastPoint = endPoint;
+
+	overlay->update();
+}
+
+void widgetKeyBoard::resizeImage( QImage *image, const QSize &newSize )
+{
+	if (image->size() == newSize)
+		return;
+
+	QImage newImage(newSize, QImage::Format_ARGB32);
+	newImage.fill(Qt::transparent);
+	QPainter painter(&newImage);
+	painter.drawImage(QPoint(0, 0), *image);
+	*image = newImage;
+}
+
+void widgetKeyBoard::clearOverlay()
+{
+	overlayImg.fill(Qt::transparent);
+	modified = true;
+	update();
 }

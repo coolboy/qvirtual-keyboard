@@ -14,12 +14,12 @@
 
 #pragma once
 
-//#include <string>
 #include <vector>
 
 #include <QtGui/QtGui>
 
 #include "QKeyPushButton.h"
+#include "overlay.h"
 
 class TraceObject{
 public:
@@ -48,16 +48,16 @@ public:
 
 	void createKeyboard(void);
 	bool isEmbeddedKeyboard(void);
-	void                    soundClick(void);
-	void                    setZoomFacility(bool active); // only valid for embedded keyboard
-	bool                    isZoomFacilityEnable(void);
-	bool                    statusEchoMode(void){return (this->m_echoMode);}
-	void                    setStatusEchoMode(bool echo) {this->m_echoMode = echo; }
-	void 			receiptChildKey(QKeyEvent *event, QLineEdit *focusThisControl, bool reset = false); // accoglie i tasti premuti
-	QLineEdit *             currentTextBox(void) { return (this->m_currentTextBox);}
-	void                    switchKeyEchoMode(QLineEdit *control);
-	void                    enableSwitchingEcho(bool status); // if you don't want control echo from keyboard
-	bool                    isEnabledSwitchingEcho(void); // current status
+	void soundClick(void);
+	void setZoomFacility(bool active); // only valid for embedded keyboard
+	bool isZoomFacilityEnable(void);
+	bool statusEchoMode(void){return (this->m_echoMode);}
+	void setStatusEchoMode(bool echo) {this->m_echoMode = echo; }
+	void receiptChildKey(QKeyEvent *event, QLineEdit *focusThisControl, bool reset = false); // accoglie i tasti premuti
+	QLineEdit* currentTextBox(void) { return (this->m_currentTextBox);}
+	void switchKeyEchoMode(QLineEdit *control);
+	void enableSwitchingEcho(bool status); // if you don't want control echo from keyboard
+	bool isEnabledSwitchingEcho(void); // current status
 
 	//find the key widget using the specific key str
 	QKeyPushButton* findKey(QString keyStr);
@@ -65,7 +65,7 @@ public:
 public slots:
 	void 			show(QWidget *activeForm);
 	void 			hide(bool noChangeColor);
-	void focusThis(QLineEdit *control);
+	void            focusThis(QLineEdit *control);
 
 	//Yang's methods for trace support
 public:
@@ -95,6 +95,14 @@ protected:
 	void mousePressEvent(QMouseEvent *event);
 	void mouseReleaseEvent(QMouseEvent *event);
 	void mouseMoveEvent ( QMouseEvent * event );
+	//void paintEvent(QPaintEvent *event);
+	void resizeEvent(QResizeEvent *event);
+
+	//for overlay
+private:
+	void drawLineTo(const QPoint &endPoint);
+	void resizeImage(QImage *image, const QSize &newSize);
+	void clearOverlay();
 
 private:
 	widgetKeyBoard(const widgetKeyBoard&);
@@ -122,4 +130,15 @@ private:
 	//Yang's method for trace support
 private:
 	Trace m_trace;
+
+	//members for overlay drawing
+private:
+	bool modified;
+	bool scribbling;
+	int myPenWidth;
+	QColor myPenColor;
+	QImage overlayImg;
+	QPoint lastPoint;
+	//overlay widget to draw 
+	Overlay *overlay;
 };

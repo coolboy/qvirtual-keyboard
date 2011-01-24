@@ -82,7 +82,6 @@ void QKeyPushButton::mousePressEvent(QMouseEvent *event)
 	//	this->repaint();
 	//	QCoreApplication::processEvents();
 	//}
-<<<<<<< .mine
 	//else if (tmpKeyBoard->isEnabledSwitchingEcho() == true && (IS_PASSWORD(text) == true || IS_PASSWORD_EMB(text) == true))
 	//	tmpKeyBoard->switchKeyEchoMode(tmpKeyBoard->currentTextBox());
 	//else {
@@ -102,6 +101,7 @@ void QKeyPushButton::mousePressEvent(QMouseEvent *event)
 	//	this->setStyleSheet(changedColorButton + defaultStyleButton);
 	//	QCoreApplication::processEvents();
 	//}
+	
 	QWidget::mousePressEvent(event);
 }
 
@@ -117,41 +117,6 @@ void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 		//restore last key's style to default, if we input a serious of letter
 		TraceObject& traceObj = tmpKeyBoard->peekTrace();
 
-=======
-	//else if (tmpKeyBoard->isEnabledSwitchingEcho() == true && (IS_PASSWORD(text) == true || IS_PASSWORD_EMB(text) == true))
-	//	tmpKeyBoard->switchKeyEchoMode(tmpKeyBoard->currentTextBox());
-	//else {
-	//	this->setStyleSheet(defaultStyleButton + changedColorButton + this->style_embedded);
-	//	this->repaint();
-	//	QCoreApplication::processEvents();
-	//	emit pressedKey(m_capsActive);
-	//}
-	//this->m_oldYKey = 0;
-	//if (tmpKeyBoard->isEmbeddedKeyboard() == true && tmpKeyBoard->isZoomFacilityEnable() && NO_SPECIAL_KEY(text) && text.trimmed().length() != 0) {
-	//	tmpKeyBoard->setCursor(Qt::BlankCursor);
-	//	if (this->y() - adjustZoomedKey - KEY_HEIGHT_EMBEDDED < yMarginKeyboard)
-	//		this->m_oldYKey = this->y();
-	//	else
-	//		adjustZoomedKey = -HEIGHT_ZOOM_KEY;
-	//	this->setGeometry(this->x() - 10, this->y() + adjustZoomedKey - KEY_HEIGHT_EMBEDDED, KEY_WIDTH_EMBEDDED + WIDTH_ZOOM_KEY, KEY_HEIGHT_EMBEDDED + HEIGHT_ZOOM_KEY);
-	//	this->setStyleSheet(changedColorButton + defaultStyleButton);
-	//	QCoreApplication::processEvents();
-	//}
-}
-
-void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
-{
-	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
-
-	if (tmpKeyBoard->getTrace().size() == 1){//restore this key's style sheet, if we only input one letter
-		setDefaultStyle();
-		emit pressedKey(false);//output the single key
-	}
-	else {		
-		//restore last key's style to default, if we input a serious of letter
-		TraceObject& traceObj = tmpKeyBoard->peekTrace();
-
->>>>>>> .r11
 		QKeyPushButton* lastKey = tmpKeyBoard->findKey(traceObj.getCharcter());
 		//set the weight for the last key
 		traceObj.setWeight(lastKey->getWeight());
@@ -165,7 +130,6 @@ void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 	//clear the trace and ready for the next input
 	tmpKeyBoard->clearTrace();
 
-<<<<<<< .mine
 	//widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
 	//bool            pressedEcho = IS_PASSWORD(this->text()) == true || IS_PASSWORD_EMB(this->text()) == true;
 
@@ -184,8 +148,7 @@ void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 	//else if (pressedEcho == true && tmpKeyBoard->isEnabledSwitchingEcho() == false && tmpKeyBoard->currentTextBox()->echoMode() == QLineEdit::Normal)
 	//	this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) + this->style_embedded);
 	//tmpKeyBoard->soundClick();
-	// 
-	QWidget::mouseReleaseEvent(event);
+	QWidget::mousePressEvent(event);
 }
 
 void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
@@ -199,41 +162,7 @@ void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
 		currentKey->increaseWeight();
 		if (currentKey->text().compare(tmpKeyBoard->peekTrace().getCharcter(), Qt::CaseInsensitive) != 0){
 			//restore the last key to default style
-=======
-	//widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
-	//bool            pressedEcho = IS_PASSWORD(this->text()) == true || IS_PASSWORD_EMB(this->text()) == true;
-
-	//if (IS_CAPS(this->text()) == false && pressedEcho == false) {
-	//	if (tmpKeyBoard->isEmbeddedKeyboard() == true && tmpKeyBoard->isZoomFacilityEnable() && NO_SPECIAL_KEY(this->text())  && this->text().trimmed().length() != 0) {
-	//		tmpKeyBoard->setCursor(Qt::ArrowCursor);
-	//		if (this->m_oldYKey != 0)
-	//			this->setGeometry(this->x() + 10, this->m_oldYKey, KEY_WIDTH_EMBEDDED, KEY_HEIGHT_EMBEDDED);
-	//		else
-	//			this->setGeometry(this->x() + 10, this->y() + HEIGHT_ZOOM_KEY + KEY_HEIGHT_EMBEDDED, KEY_WIDTH_EMBEDDED, KEY_HEIGHT_EMBEDDED);
-	//		this->m_oldYKey = 0;
-	//		QCoreApplication::processEvents();
-	//	}        
-	//	this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) + this->style_embedded);
-	//}
-	//else if (pressedEcho == true && tmpKeyBoard->isEnabledSwitchingEcho() == false && tmpKeyBoard->currentTextBox()->echoMode() == QLineEdit::Normal)
-	//	this->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON) + this->style_embedded);
-	//tmpKeyBoard->soundClick();
-}
-
-void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
-{
-	widgetKeyBoard  *tmpKeyBoard = (widgetKeyBoard *) this->m_parent;
-	QWidget* currentWig = QApplication::widgetAt (event->globalX(), event->globalY());
-
-	QKeyPushButton* currentKey = dynamic_cast<QKeyPushButton*>(currentWig);
-
-	if (currentKey){
-		currentKey->increaseWeight();
-		if (currentKey->text().compare(tmpKeyBoard->peekTrace().getCharcter(), Qt::CaseInsensitive) != 0){
-			//restore the last key to default style
->>>>>>> .r11
 			QKeyPushButton* lastKey = tmpKeyBoard->findKey(tmpKeyBoard->peekTrace().getCharcter());
-<<<<<<< .mine
 			//set the weight
 			tmpKeyBoard->peekTrace().setWeight(lastKey->getWeight());
 			lastKey->setDefaultStyle();
@@ -244,7 +173,7 @@ void QKeyPushButton::mouseMoveEvent( QMouseEvent * event )
 		}
 	}
 
-	QWidget::mouseMoveEvent (event);
+	QWidget::mousePressEvent(event);
 }
 
 void QKeyPushButton::setPressedStyle()
@@ -267,37 +196,4 @@ int QKeyPushButton::getWeight()
 void QKeyPushButton::increaseWeight()
 {
 	++m_weight;
-=======
-			//set the weight
-			tmpKeyBoard->peekTrace().setWeight(lastKey->getWeight());
-			lastKey->setDefaultStyle();
-
-			//set current key to pressed style
-			tmpKeyBoard->putTrace(TraceObject(currentKey->text()));
-			currentKey->setPressedStyle();
-		}
-	}
-}
-
-void QKeyPushButton::setPressedStyle()
-{
-	m_weight = 0;
-	setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(CHANGED_BACKGROUND_BUTTON));
-}
-
-void QKeyPushButton::setDefaultStyle()
-{
-	m_weight = -1;
-	setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(DEFAULT_BACKGROUND_BUTTON));
-}
-
-int QKeyPushButton::getWeight()
-{
-	return m_weight;
-}
-
-void QKeyPushButton::increaseWeight()
-{
-	++m_weight;
->>>>>>> .r11
 }
