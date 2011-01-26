@@ -5,9 +5,9 @@
 #include "distance.h"
 #include "SuggestObject.h"
 
-#include<map>
-#include<cctype>
-#include<algorithm>
+//#include <map>
+#include <cctype>
+#include <algorithm>
 #include <sstream>
 #include <fstream>
 

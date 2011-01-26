@@ -13,6 +13,9 @@ public:
 	VirtualKeyboard(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~VirtualKeyboard();
 
+protected slots:
+	void slotOnUserSelection(QString text);
+
 private:
 	Ui::VirtualKeyboardClass ui;
 
