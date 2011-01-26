@@ -2,15 +2,13 @@
 
 #include<vector>
 #include<string>
-#include<fstream>
-#include<iostream>
-#include <sstream>
-#include<map>
+//#include<fstream>
+//#include<iostream>
+//#include<sstream>
+//#include<map>
 
 #include "TraceObj.h"
 #include "widgetKeyBoard.h"
-
-using namespace std; 
 
 class RecogWord{
 
@@ -18,11 +16,11 @@ public:
 
 	RecogWord();
 	
-	vector<string> RecogWordVector(vector<TraceObject> userTrace);
+	std::vector<std::string> RecogWordVector(std::vector<TraceObject> userTrace);
 
-	vector<string> SplitString(const string& str);
+	std::vector<std::string> SplitString(const std::string& str);
 
-	void ReadWordLexicon(string filePath);
+	void ReadWordLexicon(std::string filePath);
 
 
 	//void ReadNeighborDict(string filePath);
@@ -31,11 +29,11 @@ public:
 
 private:
 
-	vector<string> suggestWordArray;
-	string wordLexiconPath;
+	std::vector<std::string> suggestWordArray;
+	std::string wordLexiconPath;
 	//string neighborDictPath;
 	//map<char,vector<char>> neighborDict;
-	vector<string> wordVector;
+	std::vector<std::string> wordVector;
 	int threshold;
 	int suggestNum;
 

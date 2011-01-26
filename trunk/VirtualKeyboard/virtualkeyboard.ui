@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>262</width>
+    <height>64</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,9 +19,6 @@
    </item>
    <item row="1" column="0">
     <widget class="QLineEdit" name="inputLE"/>
-   </item>
-   <item row="2" column="0">
-    <widget class="QTextBrowser" name="dbgOutput"/>
    </item>
   </layout>
  </widget>
