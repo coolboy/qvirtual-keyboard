@@ -19,9 +19,16 @@ VirtualKeyboard::VirtualKeyboard(QWidget *parent, Qt::WFlags flags)
 	//add the keyboard to the layout
 	ui.gridLayout->addWidget(myKeyboard);
 
+	connect(myKeyboard, SIGNAL(sigOnUserSelection(QString)), this, SLOT(slotOnUserSelection(QString)));
+
 }
 
 VirtualKeyboard::~VirtualKeyboard()
 {
 
+}
+
+void VirtualKeyboard::slotOnUserSelection( QString text )
+{
+	ui.inputLE->setText(ui.inputLE->text() + text);
 }

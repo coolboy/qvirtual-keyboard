@@ -53,6 +53,13 @@ public slots:
 	void 			hide(bool noChangeColor);
 	void            focusThis(QLineEdit *control);
 
+	//
+	void onTraceFinish();
+	void onUserHintSelection();
+
+signals:
+	void sigOnUserSelection(QString);
+
 	//Yang's methods for trace support
 public:
 	Trace getTrace(){
@@ -72,11 +79,6 @@ public:
 			throw std::exception("Trace is empty!");
 
 		return *m_trace.rbegin();
-	}
-
-	//for word hint
-	RecogWord* getRecogWord(){
-		return m_reg;
 	}
 
 protected:
@@ -123,6 +125,7 @@ private:
 	Trace m_trace;
 	RecogWord* m_reg;
 
+	QMenu* m_context;
 	//members for overlay drawing
 private:
 	bool modified;

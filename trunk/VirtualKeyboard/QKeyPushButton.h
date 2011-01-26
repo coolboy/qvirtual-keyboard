@@ -84,6 +84,7 @@ private slots:
 
 signals:
 	void pressedKey(bool statusCaps);
+	void traceFinished();
 
 private:
 	QWidget		*m_parent;
