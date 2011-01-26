@@ -364,9 +364,9 @@ void widgetKeyBoard::createKeyboard(void)
 	//
 	// stampa tasti numerici:
 	//tmpLayout->addWidget(createNewKey("\\"));
-	for (short i = 49; i <= 57; i++) {
-		tmpLayout->addWidget(createNewKey(QChar(i)));
-	}
+	//for (short i = 49; i <= 57; i++) {
+		//tmpLayout->addWidget(createNewKey(QChar(i)));
+	//}
 	//tmpLayout->addWidget(createNewKey(tr("0")));
 	//tmpLayout->addWidget(createNewKey(tr("/")));
 	//tmpLayout->addWidget(createNewKey(tr("?")));

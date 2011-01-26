@@ -1,12 +1,17 @@
 #include "stdafx.h"
+
 #include "RecogWord.h"
 #include "widgetKeyBoard.h"
 #include "distance.h"
 #include "SuggestObject.h"
+
 #include<map>
 #include<cctype>
 #include<algorithm>
+#include <sstream>
+#include <fstream>
 
+using namespace std; 
 
 RecogWord::RecogWord(){
 	this->threshold = 4;
@@ -20,8 +25,8 @@ RecogWord::RecogWord(){
 vector<string> RecogWord::RecogWordVector(vector<TraceObject> userTrace){
 
 	//step1: filter by first char and last char
-	char first_char = tolower(userTrace[0].getCharcter().at(0).toAscii());
-	char last_char = tolower(userTrace[userTrace.size()-1].getCharcter().at(0).toAscii());
+	char first_char = tolower(userTrace.begin()->getCharcter().at(0).toAscii());
+	char last_char = tolower(userTrace.rbegin()->getCharcter().at(0).toAscii());
 
 	vector<string> first_last_filterVector;
 
