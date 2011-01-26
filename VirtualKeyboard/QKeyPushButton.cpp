@@ -12,7 +12,7 @@
 ***************************************************************************/
 
 #include "stdafx.h"
-
+#include "RecogWord.h"
 #include "QKeyPushButton.h"
 #include "widgetKeyBoard.h"
 
@@ -123,6 +123,8 @@ void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 		lastKey->setDefaultStyle();
 
 		Trace trace = tmpKeyBoard->getTrace();
+
+		tmpKeyBoard->getRecogWord()->RecogWordVector(trace);
 
 		//send the whole trace to lzt's algorithm
 	}

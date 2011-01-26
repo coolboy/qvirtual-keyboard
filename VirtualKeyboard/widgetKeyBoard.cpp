@@ -17,6 +17,7 @@
 #include <algorithm>
 
 #include "widgetKeyBoard.h"
+#include "RecogWord.h"
 
 bool widgetKeyBoard::m_created = false;
 
@@ -27,17 +28,20 @@ widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidg
 	this->m_clipboard->clear();
 	this->setWindowIcon(QPixmap(":/VirtualKeyboard/logo"));
 
+	this->m_reg = new RecogWord();
+
 	//for overlay
 	modified = false;
 	scribbling = false;
-	myPenWidth = 1;
-	myPenColor = Qt::blue;
+	myPenWidth = 4;
+	myPenColor = Qt::red;
 
 	//overlay->raise();
 }
 
 widgetKeyBoard::~widgetKeyBoard()
 {
+	delete m_reg;
 }
 
 
