@@ -80,6 +80,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_overlay.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="RecogWord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="distance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SuggestObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TraceObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -87,6 +99,18 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_virtualkeyboard.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RecogWord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="distance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SuggestObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceObj.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,5 +135,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VirtualKeyboard.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="word_freq.txt">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

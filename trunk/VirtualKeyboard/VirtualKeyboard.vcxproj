@@ -85,6 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="distance.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_overlay.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -118,15 +119,21 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="overlay.cpp" />
     <ClCompile Include="QKeyPushButton.cpp" />
+    <ClCompile Include="RecogWord.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SuggestObject.cpp" />
+    <ClCompile Include="TraceObj.cpp" />
     <ClCompile Include="virtualkeyboard.cpp" />
     <ClCompile Include="widgetKeyBoard.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="distance.h" />
     <ClInclude Include="GeneratedFiles\ui_virtualkeyboard.h" />
+    <ClInclude Include="SuggestObject.h" />
+    <ClInclude Include="TraceObj.h" />
     <CustomBuild Include="widgetKeyBoard.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
@@ -157,6 +164,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp" "-fStdAfx.h" "-f..\..\overlay.h" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\qtmain" "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\$(ConfigurationName)\." -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DUNICODE -DWIN32</Command>
     </CustomBuild>
+    <ClInclude Include="RecogWord.h" />
     <ClInclude Include="stdafx.h" />
     <CustomBuild Include="virtualkeyboard.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -197,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VirtualKeyboard.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="word_freq.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
