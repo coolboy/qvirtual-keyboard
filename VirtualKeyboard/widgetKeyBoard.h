@@ -95,6 +95,8 @@ protected:
 private:
 	void drawLineTo(const QPoint &endPoint);
 	void resizeImage(QImage *image, const QSize &newSize);
+
+protected slots:
 	void clearOverlay();
 
 private:

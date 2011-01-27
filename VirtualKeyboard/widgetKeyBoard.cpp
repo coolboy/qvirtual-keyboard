@@ -476,6 +476,30 @@ void widgetKeyBoard::mouseReleaseEvent( QMouseEvent *event )
 {
 	if (event->button() == Qt::LeftButton && scribbling) {
 		clearOverlay();
+		//1. get last user selection
+		//QString str = "tor";
+
+		//this->findKey("t")->geometry();
+
+		//drawLineTo()if	
+		//QPainter painter(&overlayImg);
+		//painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap,
+			//Qt::RoundJoin));
+		//painter.drawLine(QPoint(10, 10), QPoint(50, 50));
+		
+		//painter.drawLine(QPoint(50, 50), QPoint(25, 50));
+		//modified = true;
+
+		//overlay->update();
+
+		//QTimer::singleShot(3000, this, SLOT(clearOverlay()));
+
+
+		//int rad = (myPenWidth / 2) + 2;
+		//lastPoint = endPoint;
+
+		//2. 
+		//
 		scribbling = false;
 	}
 
