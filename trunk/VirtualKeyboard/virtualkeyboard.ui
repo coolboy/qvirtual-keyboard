@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>262</width>
-    <height>64</height>
+    <height>169</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,6 +37,9 @@
       </font>
      </property>
     </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QTextBrowser" name="resultTB"/>
    </item>
   </layout>
  </widget>
