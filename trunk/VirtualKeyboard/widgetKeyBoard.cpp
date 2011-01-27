@@ -379,6 +379,7 @@ void widgetKeyBoard::createKeyboard(void)
 	h1Layout->addWidget(createNewKey(tr("U")));
 	h1Layout->addWidget(createNewKey(tr("I")));
 	h1Layout->addWidget(createNewKey(tr("O")));
+	h1Layout->addWidget(createNewKey(tr("P")));
 	h1Layout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding ));
 
 	baseLayout->addLayout(h1Layout);
@@ -386,7 +387,6 @@ void widgetKeyBoard::createKeyboard(void)
 	QHBoxLayout* h2Layout = new QHBoxLayout();
 	h2Layout->setSpacing(0);
 	h2Layout->setMargin(0);
-	h2Layout->addWidget(createNewKey(tr("P")));
 	h2Layout->addWidget(createNewKey(tr("A")));
 	h2Layout->addWidget(createNewKey(tr("S")));
 	h2Layout->addWidget(createNewKey(tr("D")));
@@ -395,6 +395,7 @@ void widgetKeyBoard::createKeyboard(void)
 	h2Layout->addWidget(createNewKey(tr("H")));
 	h2Layout->addWidget(createNewKey(tr("J")));
 	h2Layout->addWidget(createNewKey(tr("K")));
+	h2Layout->addWidget(createNewKey(tr("L")));
 	h2Layout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding ));
 
 	baseLayout->addLayout(h2Layout);
@@ -404,7 +405,7 @@ void widgetKeyBoard::createKeyboard(void)
 	h3Layout->setSpacing(0);
 	h3Layout->setMargin(0);
 
-	h3Layout->addWidget(createNewKey(tr("L")));
+	h3Layout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding ));
 	h3Layout->addWidget(createNewKey(tr("Z")));
 	h3Layout->addWidget(createNewKey(tr("X")));
 	h3Layout->addWidget(createNewKey(tr("C")));
