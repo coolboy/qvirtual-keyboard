@@ -26,6 +26,7 @@ using namespace std;
 
 bool widgetKeyBoard::m_created = false;
 
+
 widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidget *parent) : QWidget(parent), m_activeWindow(activeForm),
 	m_currentTextBox(NULL), m_embeddedKeyboard(embeddedKeyboard), m_echoMode(false), m_zoomFacilityEmbedded(false), m_enablePasswordEcho(false),
 	m_player(QDir::currentPath() + CLICK_SOUND), m_clipboard(QApplication::clipboard())
@@ -338,7 +339,7 @@ void widgetKeyBoard::focusThis(QLineEdit *control)
 		this->controlKeyEcho(control);
 	}
 	else
-		;// Non ?attiva nessuna finestra su cui operare
+		;
 }
 
 void widgetKeyBoard::closeEvent(QCloseEvent * event)
@@ -473,34 +474,44 @@ void widgetKeyBoard::mousePressEvent( QMouseEvent *event )
 	QWidget::mousePressEvent(event);
 }
 
-void widgetKeyBoard::mouseReleaseEvent( QMouseEvent *event )
+void widgetKeyBoard::mouseReleaseEvent(QMouseEvent *event )
 {
 	if (event->button() == Qt::LeftButton && scribbling) {
 		clearOverlay();
+
+		//user input size is less 2, no feedback
+		if(this->m_selection.size() < 2)
+			return;
+
 		//1. get last user selection
-		//QString str = "tor";
+		QString str = this->m_selection;
+		vector<QPoint> inputPoint;
 
-		//this->findKey("t")->geometry();
+		for(int i = 0; i < str.size(); i++){
+			QString character;
+			character.push_back(str.at(i));
+			int x = this->findKey(character)->geometry().x() + 30;
+			int y = this->findKey(character)->geometry().y() + 22;
+			inputPoint.push_back(QPoint(x,y));
+		}
 
-		//drawLineTo()if	
-		//QPainter painter(&overlayImg);
-		//painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap,
-			//Qt::RoundJoin));
-		//painter.drawLine(QPoint(10, 10), QPoint(50, 50));
-		
-		//painter.drawLine(QPoint(50, 50), QPoint(25, 50));
-		//modified = true;
+		//drawLineTo()
+		QPainter painter(&overlayImg);
+		painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 
-		//overlay->update();
 
-		//QTimer::singleShot(3000, this, SLOT(clearOverlay()));
+		for(vector<int>::size_type i = 1; i < inputPoint.size(); i++){
+				painter.drawLine(inputPoint[i-1], inputPoint[i]);
+		}
 
+			modified = true;
+			overlay->update();
+			QTimer::singleShot(300, this, SLOT(clearOverlay()));
+			inputPoint.clear();
 
 		//int rad = (myPenWidth / 2) + 2;
 		//lastPoint = endPoint;
 
-		//2. 
-		//
 		scribbling = false;
 	}
 
@@ -591,4 +602,6 @@ void widgetKeyBoard::onUserHintSelection()
 	QString text = ((QAction*)sender())->text();
 
 	/*emit*/ sigOnUserSelection(text);
+
+	this->m_selection = text;
 }

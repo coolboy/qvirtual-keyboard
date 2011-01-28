@@ -5,7 +5,11 @@ class SuggestObject{
 public:
 	SuggestObject(string text, int minDist);
 
+	SuggestObject(string text, int minDist,int wordFreq);
+
 	int getMinDist() const { return minDist; }
+
+	int getWordFreq() const {return wordFreq;}
 
 	string getText() const {return text;}
 
@@ -14,4 +18,5 @@ public:
 private:
 	string text;
 	int minDist;
+	int wordFreq;
 };
