@@ -589,7 +589,10 @@ void widgetKeyBoard::onTraceFinish()
 
 	//just display it when we only have one hint
 	if (hints.size() == 1){
-		sigOnUserSelection(QString::fromStdString(hints[0]));
+		QAction* act = new QAction(QString::fromStdString(hints[0]), 0);
+		connect(act, SIGNAL(triggered ( bool)), this, SLOT(onUserHintSelection()));
+		act->trigger();
+		act->deleteLater();
 		this->m_selection = QString::fromStdString(hints[0]);
 	}else{//display the menu to make user choice
 		for_each(hints.begin(), hints.end(), [&] (string hint){
