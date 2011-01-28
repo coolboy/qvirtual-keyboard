@@ -71,7 +71,7 @@ void QKeyPushButton::mouseReleaseEvent(QMouseEvent *event)
 
 	if (tmpKeyBoard->getTrace().size() == 1){//restore this key's style sheet, if we only input one letter
 		setDefaultStyle();
-		emit pressedKey(false);//output the single key
+		emit pressedKey(true);//output the single key in upper case
 	}
 	else {		
 		//restore last key's style to default, if we input a serious of letter
