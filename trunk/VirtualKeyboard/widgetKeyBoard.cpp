@@ -484,7 +484,10 @@ void widgetKeyBoard::mouseReleaseEvent(QMouseEvent *event )
 			return;
 
 		//1. get last user selection
-		QString str = this->m_selection;
+		QString str = this->m_selection;;
+		if(this->m_selection.at(0) == ' ')
+			str = str.right(str.size()-1);
+
 		vector<QPoint> inputPoint;
 
 		for(int i = 0; i < str.size(); i++){
