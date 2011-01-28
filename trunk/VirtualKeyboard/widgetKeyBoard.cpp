@@ -16,6 +16,7 @@
 
 #include <vector>
 #include <string>
+#include <cctype>
 #include <algorithm>
 
 #include "widgetKeyBoard.h"
@@ -240,8 +241,8 @@ void widgetKeyBoard::receiptChildKey(QKeyEvent *event, QLineEdit *focusThisContr
 	else { // si tratta di un carattere da visualizzare nella casella di testo corrente
 		tmpReceiptString = tmpReceiptString.insert(tmpPos, newKey);
 		nextInput->setText(tmpReceiptString);
-		nextInput->setCursorPosition(tmpPos+1);
-		nextInput->setSelection(tmpPos, 1);
+		//nextInput->setCursorPosition(tmpPos+1);
+		//nextInput->setSelection(tmpPos, 1);
 	}
 }
 
@@ -566,13 +567,23 @@ void widgetKeyBoard::onTraceFinish()
 	m_context->clear();
 
 	vector<string> hints = m_reg->RecogWordVector(m_trace);
+	//make it upper case
+	for_each(hints.begin(), hints.end(), [](string& hint){
+		std::transform(hint.begin(), hint.end(), hint.begin(), toupper);
 
-	for_each(hints.begin(), hints.end(), [&] (string hint){
-		auto act = m_context->addAction(QString::fromStdString(hint));
-		connect(act, SIGNAL(triggered ( bool)), this, SLOT(onUserHintSelection()));
 	});
 
-	m_context->exec(QCursor::pos());
+	//just display it when we only have one hint
+	if (hints.size() == 1){
+		sigOnUserSelection(QString::fromStdString(hints[0]));
+	}else{//display the menu to make user choice
+		for_each(hints.begin(), hints.end(), [&] (string hint){
+			auto act = m_context->addAction(QString::fromStdString(hint));
+			connect(act, SIGNAL(triggered ( bool)), this, SLOT(onUserHintSelection()));
+		});
+
+		m_context->exec(QCursor::pos());
+	}
 }
 
 void widgetKeyBoard::onUserHintSelection()
