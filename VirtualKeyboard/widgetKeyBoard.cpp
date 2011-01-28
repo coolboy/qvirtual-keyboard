@@ -587,6 +587,7 @@ void widgetKeyBoard::onTraceFinish()
 	//just display it when we only have one hint
 	if (hints.size() == 1){
 		sigOnUserSelection(QString::fromStdString(hints[0]));
+		this->m_selection = QString::fromStdString(hints[0]);
 	}else{//display the menu to make user choice
 		for_each(hints.begin(), hints.end(), [&] (string hint){
 			auto act = m_context->addAction(QString::fromStdString(hint));
