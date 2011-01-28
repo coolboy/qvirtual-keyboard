@@ -22,6 +22,7 @@
 #include "overlay.h"
 #include "TraceObj.h"
 
+
 typedef std::vector<TraceObject> Trace;
 
 class RecogWord;
@@ -136,6 +137,9 @@ private:
 	QColor myPenColor;
 	QImage overlayImg;
 	QPoint lastPoint;
+
+	QString m_selection;
+
 	//overlay widget to draw 
 	Overlay *overlay;
 };
