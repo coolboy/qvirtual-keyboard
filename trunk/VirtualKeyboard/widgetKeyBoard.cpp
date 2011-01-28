@@ -512,6 +512,8 @@ void widgetKeyBoard::mouseReleaseEvent(QMouseEvent *event )
 			QTimer::singleShot(300, this, SLOT(clearOverlay()));
 			inputPoint.clear();
 
+			this->m_selection.clear();
+
 		//int rad = (myPenWidth / 2) + 2;
 		//lastPoint = endPoint;
 
