@@ -18,7 +18,6 @@
 #include <string>
 #include <cctype>
 #include <algorithm>
-
 #include "widgetKeyBoard.h"
 #include "RecogWord.h"
 
@@ -474,6 +473,30 @@ void widgetKeyBoard::mousePressEvent( QMouseEvent *event )
 	QWidget::mousePressEvent(event);
 }
 
+void widgetKeyBoard::drawTraceFeedback(){
+	
+	clearOverlay();
+	this->currentIndex++;
+	if(this->currentIndex == this->inputPoint.size()){
+		this->inputPoint.clear();
+		return;
+	}
+
+	//drawLineTo()
+	QPainter painter(&overlayImg);
+	painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+
+	for(auto i = 1; i <= currentIndex; i++){
+			painter.drawLine(this->inputPoint[i-1], this->inputPoint[i]);
+	}
+
+	modified = true;
+	overlay->update();
+
+	QTimer::singleShot(300, this, SLOT(drawTraceFeedback()));
+			
+}
+
 void widgetKeyBoard::mouseReleaseEvent(QMouseEvent *event )
 {
 	if (event->button() == Qt::LeftButton && scribbling) {
@@ -488,30 +511,20 @@ void widgetKeyBoard::mouseReleaseEvent(QMouseEvent *event )
 		if(this->m_selection.at(0) == ' ')
 			str = str.right(str.size()-1);
 
-		vector<QPoint> inputPoint;
 
 		for(int i = 0; i < str.size(); i++){
 			QString character;
 			character.push_back(str.at(i));
 			int x = this->findKey(character)->geometry().x() + 30;
 			int y = this->findKey(character)->geometry().y() + 22;
-			inputPoint.push_back(QPoint(x,y));
+			this->inputPoint.push_back(QPoint(x,y));
+			
 		}
 
-		//drawLineTo()
-		QPainter painter(&overlayImg);
-		painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+		this->currentIndex = 0;
+		this->drawTraceFeedback();
 
-
-		for(vector<int>::size_type i = 1; i < inputPoint.size(); i++){
-				painter.drawLine(inputPoint[i-1], inputPoint[i]);
-		}
-
-			modified = true;
-			overlay->update();
-			QTimer::singleShot(300, this, SLOT(clearOverlay()));
-			inputPoint.clear();
-
+			
 			this->m_selection.clear();
 
 		//int rad = (myPenWidth / 2) + 2;

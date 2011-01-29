@@ -15,9 +15,7 @@
 #pragma once
 
 #include <vector>
-
 #include <QtGui/QtGui>
-
 #include "QKeyPushButton.h"
 #include "overlay.h"
 #include "TraceObj.h"
@@ -142,4 +140,12 @@ private:
 
 	//overlay widget to draw 
 	Overlay *overlay;
+
+	int currentIndex;
+	std::vector<QPoint> inputPoint;
+
+	//Liu's method for trace feedback
+protected slots:
+	void drawTraceFeedback();
+		
 };
