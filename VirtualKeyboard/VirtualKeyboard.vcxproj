@@ -86,6 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="distance.cpp" />
+    <ClCompile Include="EditDistance.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_overlay.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -131,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="distance.h" />
+    <ClInclude Include="EditDistance.h" />
     <ClInclude Include="GeneratedFiles\ui_virtualkeyboard.h" />
     <ClInclude Include="SuggestObject.h" />
     <ClInclude Include="TraceObj.h" />

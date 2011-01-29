@@ -42,7 +42,7 @@ widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidg
 	//for overlay
 	modified = false;
 	scribbling = false;
-	myPenWidth = 4;
+	myPenWidth = 0;
 	myPenColor = Qt::red;
 
 }

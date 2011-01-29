@@ -15,7 +15,9 @@
 #pragma once
 
 #include <vector>
+
 #include <QtGui/QtGui>
+
 #include "QKeyPushButton.h"
 #include "overlay.h"
 #include "TraceObj.h"

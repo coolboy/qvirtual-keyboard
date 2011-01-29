@@ -39,7 +39,14 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QTextBrowser" name="resultTB"/>
+    <widget class="QTextBrowser" name="resultTB">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
