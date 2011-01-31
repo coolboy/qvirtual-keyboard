@@ -77,7 +77,9 @@ void VirtualKeyboard::slotOnUserSelection( QString text )
 		for_each(res.route.begin(), res.route.end(), [&tags](const EditDistance::OperationObject& oo){
 			switch(oo.opTy){
 			case EditDistance::Insertion:
-				tags[oo.srcOffset].suffix.push_back(insPrefix + oo.tgtChar + insSuffix);
+				//reverse the insertion steps order
+				tags[oo.srcOffset].suffix.insert(tags[oo.srcOffset].suffix.begin(), insPrefix + oo.tgtChar + insSuffix);
+				//tags[oo.srcOffset].suffix.push_back(insPrefix + oo.tgtChar + insSuffix);
 				break;
 			case EditDistance::Deletion:
 				tags[oo.srcOffset].prefix.push_back(delPrefix);
