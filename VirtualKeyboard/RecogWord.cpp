@@ -15,7 +15,7 @@ RecogWord::RecogWord(){
 	this->wordLexiconPath = "word_freq.txt";
 	this->suggestNum = 5;
 	this->ReadWordLexicon(this->wordLexiconPath);
-	this->spaceCtrl = false;
+//	this->spaceCtrl = false;
 
 	for(int i = int('A'); i <= int('Z'); i++)
 		this->characterVector.push_back(char(i));	
@@ -51,10 +51,10 @@ vector<string> RecogWord::RecogWordVector(vector<TraceObject> userTrace){
 	//if there is no result for step1, just return the raw input
 	if(first_last_filterVector.size()==0)
 	{
-		if(this->spaceCtrl)
-			rawInput = " " + rawInput;
-		else
-			this->spaceCtrl = true;
+		//if(this->spaceCtrl)
+		//	rawInput = " " + rawInput;
+		//else
+		//	this->spaceCtrl = true;
 
 		suggestText.push_back(rawInput);
 		return suggestText;
@@ -87,10 +87,10 @@ vector<string> RecogWord::RecogWordVector(vector<TraceObject> userTrace){
 	//if there is no result for step2, just return the raw input
 	if(shownUpVector.size()==0)
 	{
-		if(this->spaceCtrl)
-			rawInput = " " + rawInput;
-		else
-			this->spaceCtrl = true;
+		//if(this->spaceCtrl)
+		//	rawInput = " " + rawInput;
+		//else
+		//	this->spaceCtrl = true;
 
 		suggestText.push_back(rawInput);
 		return suggestText;
@@ -152,15 +152,15 @@ vector<string> RecogWord::RecogWordVector(vector<TraceObject> userTrace){
 	for(int i = 0; i < this->suggestNum; i++)
 		suggestText.push_back(minLDVector[i].getText());
 
-	if(this->spaceCtrl){
-		for(vector<int>::size_type i = 0; i < suggestText.size(); i++)
-			suggestText[i] = " " + suggestText[i];
-	}			
-	else
-		this->spaceCtrl = true;
+	//if(this->spaceCtrl){
+	//	for(vector<int>::size_type i = 0; i < suggestText.size(); i++)
+	//		suggestText[i] = " " + suggestText[i];
+	//}			
+	//else
+	//	this->spaceCtrl = true;
 
 	return suggestText;
-}
+}p
 
 vector<string> RecogWord::SplitString(const string& str){
 	vector<string> tmpVector;

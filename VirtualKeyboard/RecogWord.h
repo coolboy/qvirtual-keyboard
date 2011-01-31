@@ -27,6 +27,6 @@ private:
 	std::map<std::string,int> wordMap;
 	int threshold;
 	int suggestNum;
-	bool spaceCtrl;
+	//bool spaceCtrl;
 	std::vector<char> characterVector;
 };

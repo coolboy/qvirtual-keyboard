@@ -68,9 +68,9 @@ void VirtualKeyboard::slotOnUserSelection( QString text )
 	ui.inputLE->setText(inputTxt);
 
 	EditDistance::DistanceResult res = EditDistance::calc(inputTxt.toUpper().toStdString(), echoTxt.toUpper().toStdString());
-
+	
 	if (res.distance == 0){
-		ui.resultTB->setHtml("<font color=\"green\">Perfect Match!</font>");
+		ui.resultTB->setHtml("<font size=5 color=\"green\">Perfect Match!</font>");
 	}else{
 		std::vector<HtmlTags> tags(inputTxt.size());
 
@@ -93,8 +93,12 @@ void VirtualKeyboard::slotOnUserSelection( QString text )
 			}
 		});
 
-		QString finalOutput = "<font size=\"8\">";
-		finalOutput += "MinDistance: " + QString::number(res.distance) + "<br/>";
+		QString finalOutput = "<font size= 5>";
+		QString stepsStr = QString::number(res.route.size());
+		if(res.distance == 1)
+			finalOutput += "Need "+stepsStr + " step(insert, replace or delete) to make them same!<br/>";
+		else
+			finalOutput += "Need "+stepsStr + " steps(insert, replace or delete) to make them same!<br/>";
 
 		for (auto i = 0; i < inputTxt.size(); ++i){
 			QString prefix = HtmlTags::toString(tags[i].prefix);

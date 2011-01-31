@@ -42,7 +42,7 @@ widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidg
 	//for overlay
 	modified = false;
 	scribbling = false;
-	myPenWidth = 0;
+	myPenWidth = 3;
 	myPenColor = Qt::red;
 
 }
@@ -85,6 +85,7 @@ QKeyPushButton * widgetKeyBoard::createNewKey(QString keyValue)
 	QSize          imageDim;
 	int            width = 0, height = 0;
 
+
 	if (this->isEmbeddedKeyboard() == true) {
 		imageDim.setWidth(16);
 		imageDim.setHeight(16);
@@ -125,6 +126,7 @@ QKeyPushButton * widgetKeyBoard::createNewKey(QString keyValue)
 	tmp->setMaximumSize(width, height);
 	tmp->setStyleSheet(style);
 	tmp->setVisible(true);
+	tmp->setFont(QFont("Î¢ÈíÑÅºÚ",11));
 
 	connect (tmp, SIGNAL(traceFinished()), this, SLOT(onTraceFinish()));
 
@@ -493,7 +495,7 @@ void widgetKeyBoard::drawTraceFeedback(){
 	modified = true;
 	overlay->update();
 
-	QTimer::singleShot(300, this, SLOT(drawTraceFeedback()));
+	QTimer::singleShot(500, this, SLOT(drawTraceFeedback()));
 			
 }
 
@@ -518,17 +520,11 @@ void widgetKeyBoard::mouseReleaseEvent(QMouseEvent *event )
 			int x = this->findKey(character)->geometry().x() + 30;
 			int y = this->findKey(character)->geometry().y() + 22;
 			this->inputPoint.push_back(QPoint(x,y));
-			
 		}
 
 		this->currentIndex = 0;
 		this->drawTraceFeedback();
-
-			
-			this->m_selection.clear();
-
-		//int rad = (myPenWidth / 2) + 2;
-		//lastPoint = endPoint;
+		this->m_selection.clear();
 
 		scribbling = false;
 	}
