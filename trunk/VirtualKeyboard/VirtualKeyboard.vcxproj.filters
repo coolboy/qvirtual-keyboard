@@ -146,5 +146,6 @@
     <None Include="word_freq.txt">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Readme.txt" />
   </ItemGroup>
 </Project>
