@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualKeyboard", "VirtualKeyboard\VirtualKeyboard.vcxproj", "{02CC3BDB-2335-4419-9AC7-48BF1C9CE587}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "virtual-keyboard-setup", "virtual-keyboard-setup\virtual-keyboard-setup.vdproj", "{D8B20512-9C30-44E8-8819-39C6C35001C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,8 @@ Global
 		{02CC3BDB-2335-4419-9AC7-48BF1C9CE587}.Debug|Win32.Build.0 = Debug|Win32
 		{02CC3BDB-2335-4419-9AC7-48BF1C9CE587}.Release|Win32.ActiveCfg = Release|Win32
 		{02CC3BDB-2335-4419-9AC7-48BF1C9CE587}.Release|Win32.Build.0 = Release|Win32
+		{D8B20512-9C30-44E8-8819-39C6C35001C0}.Debug|Win32.ActiveCfg = Debug
+		{D8B20512-9C30-44E8-8819-39C6C35001C0}.Release|Win32.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

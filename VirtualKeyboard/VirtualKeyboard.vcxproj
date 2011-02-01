@@ -209,6 +209,7 @@
     <ResourceCompile Include="VirtualKeyboard.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Readme.txt" />
     <None Include="word_freq.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

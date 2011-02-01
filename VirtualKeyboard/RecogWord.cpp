@@ -160,7 +160,7 @@ vector<string> RecogWord::RecogWordVector(vector<TraceObject> userTrace){
 	//	this->spaceCtrl = true;
 
 	return suggestText;
-}p
+}
 
 vector<string> RecogWord::SplitString(const string& str){
 	vector<string> tmpVector;
