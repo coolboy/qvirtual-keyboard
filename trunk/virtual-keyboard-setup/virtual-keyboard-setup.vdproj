@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B6C2CB81CA924FF78460E8BB43ADDFEF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C47B668EF0794DD882F14C9D739C74C0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -92,6 +86,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Visual.C++.10.0.x86"
+                    {
+                    "Name" = "8:Visual C++ 2010 运行库(x86)"
+                    "ProductCode" = "8:Microsoft.Visual.C++.10.0.x86"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -119,26 +134,6 @@
             "TargetName" = "8:QtCore4.dll"
             "Tag" = "8:"
             "Folder" = "8:_80A06ED301484C1E81916FA6E6B1502F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6C2CB81CA924FF78460E8BB43ADDFEF"
-            {
-            "SourcePath" = "8:..\\sounds\\click.wav"
-            "TargetName" = "8:click.wav"
-            "Tag" = "8:"
-            "Folder" = "8:_8E82F384945746D395AFD1855FAAEC09"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -220,17 +215,6 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_8E82F384945746D395AFD1855FAAEC09"
-                    {
-                    "Name" = "8:sounds"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_BC903C974715452FA6FA4024DD85EE6E"
-                        "Folders"
-                        {
-                        }
-                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_A4E953DDB59C44BD8415BB648CD3F85C"
@@ -261,20 +245,20 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:virtual-keyboard-setup"
         "ProductCode" = "8:{1E6DC594-C4E4-42BA-8BEB-49366F83DF37}"
-        "PackageCode" = "8:{3BAA351F-0A18-4725-9521-A562D5BD9F3D}"
+        "PackageCode" = "8:{5032B228-8F20-4680-99AC-0F81DF81BED5}"
         "UpgradeCode" = "8:{227D44DB-E6D5-40B8-AB72-635AE56CF770}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:默认公司名称"
+        "Manufacturer" = "8:Upitt"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:virtual-keyboard-setup"
+        "Title" = "8:Virtual-keyboard"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:默认公司名称"
+        "ARPCONTACT" = "8:Yang Hu & Zitao Liu"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
